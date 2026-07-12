@@ -1,5 +1,13 @@
 # pyDatenträgerbereinigen (Python)
 
+# pyDatentraegerbereinigen
+
+![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![GitHub Release](https://img.shields.io/github/v/release/mobyNet/pyDatentr-gerbereinigen)
+![Status](https://img.shields.io/badge/status-stable-success)
+
+
 Ein schneller, sicherer und kompakter System-Cleaner für Windows, geschrieben in Python.  
 Das gesamte Tool befindet sich in **einer einzigen Datei**: `temporaereDaten.py`.
 
