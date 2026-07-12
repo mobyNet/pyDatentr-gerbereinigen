@@ -22,6 +22,11 @@ Alle Funktionen arbeiten lokal, ohne Internet, ohne externe Pakete.
 
 ---
 
+## 📸 Menü-Screenshot
+
+![Menü Screenshot](screenshot-menu.png)
+
+
 ## 📦 Installation
 
 ### 1️⃣ Repository klonen
