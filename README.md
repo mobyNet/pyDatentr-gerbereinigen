@@ -1,9 +1,9 @@
-# pyDatenträgerbereinigen (Python)
+# pyDatentraegerbereinigen (Python)
 
 
 ![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![GitHub Release](https://img.shields.io/github/v/release/mobyNet/pyDatentr-gerbereinigen)
+![GitHub Release](https://img.shields.io/github/v/release/mobyNet/pyDatentraegerbereinigen)
 ![Status](https://img.shields.io/badge/status-stable-success)
 
 
@@ -39,5 +39,5 @@ Alle Funktionen arbeiten lokal, ohne Internet, ohne externe Pakete.
 ### 1️⃣ Repository klonen
 
 ```bash
-git clone https://github.com/mobyNet/pyDatenträgerbereinigen.git
-cd pyDatenträgerbereinigen
+git clone https://github.com/mobyNet/pyDatentraegerbereinigen.git
+cd pyDatentraegerbereinigen

@@ -5,31 +5,34 @@ import os
 import sys
 import tempfile
 
-
 # -------------------------------
 #  MENÜ
 # -------------------------------
 
+
 def main_menu():
-    print("\nWas möchtest du ausführen?")
+    print("\n==============================")
+    print("🧹 pyDatentraeger v1.0.1")
+    print("==============================\n")
+
     print("1) 🧹 Temp + Windows-Temp löschen (Papierkorb wird auch geleert)")
     print("2) 🔒 Papierkorb leeren + Secure-Wipe")
     print("3) 📦 Update-Cache anzeigen und optional löschen")
     print("4) 🌐 Browser-Cache löschen")
-    print("5) ❌ Beenden")
+    print("5) ❌ Beenden\n")
 
-    choice = input("Auswahl: ")
-    return choice
+    return input("👉 Auswahl: ")
 
 
 # -------------------------------
 #  TEMP CLEANER
 # -------------------------------
 
+
 def delete_temp_files():
     temp_dirs = [
         tempfile.gettempdir(),
-        os.path.join(os.environ.get("SystemRoot", "C:\\Windows"), "Temp")
+        os.path.join(os.environ.get("SystemRoot", "C:\\Windows"), "Temp"),
     ]
 
     deleted_files = 0
@@ -51,7 +54,6 @@ def delete_temp_files():
             for file in files:
                 file_path = os.path.join(root, file)
 
-                # Prüfen, ob Datei gesperrt ist
                 try:
                     with open(file_path, "rb"):
                         pass
@@ -59,7 +61,6 @@ def delete_temp_files():
                     skipped_files += 1
                     continue
 
-                # Datei ist NICHT gesperrt → löschen
                 try:
                     os.remove(file_path)
                     deleted_files += 1
@@ -85,6 +86,7 @@ def delete_temp_files():
 #  PAPIERKORB LEEREN
 # -------------------------------
 
+
 def empty_recycle_bin():
     SHERB_NOCONFIRMATION = 0x00000001
     SHERB_NOPROGRESSUI = 0x00000002
@@ -92,8 +94,7 @@ def empty_recycle_bin():
 
     try:
         ctypes.windll.shell32.SHEmptyRecycleBinW(
-            None, None,
-            SHERB_NOCONFIRMATION | SHERB_NOPROGRESSUI | SHERB_NOSOUND
+            None, None, SHERB_NOCONFIRMATION | SHERB_NOPROGRESSUI | SHERB_NOSOUND
         )
         print("🗑️ Papierkorb geleert.")
     except Exception as e:
@@ -103,6 +104,7 @@ def empty_recycle_bin():
 # -------------------------------
 #  SECURE WIPE
 # -------------------------------
+
 
 def wipe_free_space(drive="C:\\", chunk_size=1024 * 1024 * 400):
     print(f"\n🔒 Starte Secure Wipe für freien Speicher auf {drive}")
@@ -127,9 +129,7 @@ def wipe_free_space(drive="C:\\", chunk_size=1024 * 1024 * 400):
                 filled = int(progress * bar_length)
                 bar = "█" * filled + "-" * (bar_length - filled)
 
-                sys.stdout.write(
-                    f"\r   ➕ Fortschritt: [{bar}] {progress*100:.1f}%"
-                )
+                sys.stdout.write(f"\r   ➕ Fortschritt: [{bar}] {progress*100:.1f}%")
                 sys.stdout.flush()
 
         print("\n   ✔️ Wipe-Datei vollständig geschrieben.")
@@ -151,8 +151,9 @@ def wipe_free_space(drive="C:\\", chunk_size=1024 * 1024 * 400):
 #  UPDATE CACHE
 # -------------------------------
 
+
 def get_update_cache_size():
-    folder = r"C:\Windows\SoftwareDistribution\Download"
+    folder = os.path.join(os.getenv("WINDIR"), "SoftwareDistribution", "Download")
     total_size = 0
 
     for root, dirs, files in os.walk(folder):
@@ -167,7 +168,7 @@ def get_update_cache_size():
 
 
 def delete_update_cache():
-    folder = r"C:\Windows\SoftwareDistribution\Download"
+    folder = os.path.join(os.getenv("WINDIR"), "SoftwareDistribution", "Download")
 
     print("\n📦 Lösche Update-Cache...")
 
@@ -183,6 +184,7 @@ def delete_update_cache():
 #  BROWSER CACHE
 # -------------------------------
 
+
 def get_folder_size(path):
     total = 0
     for root, dirs, files in os.walk(path):
@@ -196,16 +198,17 @@ def get_folder_size(path):
 
 def delete_browser_cache():
     chrome_cache = os.path.expandvars(
-        r"%LOCALAPPDATA%\Google\Chrome\User Data\Default\Cache")
+        r"%LOCALAPPDATA%\Google\Chrome\User Data\Default\Cache"
+    )
     edge_cache = os.path.expandvars(
-        r"%LOCALAPPDATA%\Microsoft\Edge\User Data\Default\Cache")
+        r"%LOCALAPPDATA%\Microsoft\Edge\User Data\Default\Cache"
+    )
 
     print("\n🌐 Browser-Cache Analyse...")
 
     total_size = 0
     cache_paths = [chrome_cache, edge_cache]
 
-    # Größe berechnen
     for cache in cache_paths:
         if os.path.exists(cache):
             size = get_folder_size(cache)
@@ -224,7 +227,6 @@ def delete_browser_cache():
         if os.path.exists(cache):
             for root, dirs, files in os.walk(cache, topdown=False):
 
-                # Dateien löschen
                 for f in files:
                     fp = os.path.join(root, f)
                     try:
@@ -233,7 +235,6 @@ def delete_browser_cache():
                     except:
                         skipped += 1
 
-                # Ordner löschen
                 for d in dirs:
                     dp = os.path.join(root, d)
                     try:
